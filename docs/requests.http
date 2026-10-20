@@ -1,0 +1,23 @@
+### Realizar Transferência (Primeira execução)
+POST http://localhost:8080/transactions
+Content-Type: application/json
+
+{
+  "sourceWallet": 1,
+  "destinationWallet": 2,
+  "amount": 10.00,
+  "idempotencyKey": "key-transfer-001"
+}
+
+###
+
+### Testar Idempotência (Reenvio com a mesma chave)
+POST http://localhost:8080/transactions
+Content-Type: application/json
+
+{
+  "sourceWallet": 1,
+  "destinationWallet": 2,
+  "amount": 10.00,
+  "idempotencyKey": "key-transfer-001"
+}
