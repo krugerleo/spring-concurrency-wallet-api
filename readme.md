@@ -19,6 +19,9 @@ mvn test
 ```bash
 mvn spring-boot:run
 ```
+Access the H2 Console at `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:walletdb`, User: `sa`, Password: *empty*).
+
+---
 
 ## Core Problems & Solutions
 
