@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.rmi.server.UID;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,11 +24,15 @@ public class TransactionServiceConcurrencyTest {
     @Autowired
     private WalletRepository walletRepository;
 
+    @Autowired
+    private TransactionRepository transactionRepository;
+
     private Long sourceWalletId;
     private Long destinationWalletId;
 
     @BeforeEach
     void setUp() {
+        transactionRepository.deleteAll();
         walletRepository.deleteAll();
 
         Wallet source = new Wallet();
@@ -51,8 +57,9 @@ public class TransactionServiceConcurrencyTest {
         for (int i = 0; i < numberOfThreads; i++) {
             executorService.submit(() -> {
                 try {
+                    String uniqueKey = UUID.randomUUID().toString();
                     transactionService.transfer(
-                            new TransactionRequestDTO(sourceWalletId, destinationWalletId, transferAmount)
+                            new TransactionRequestDTO(sourceWalletId, destinationWalletId, transferAmount, uniqueKey)
                     );
                 } catch (Exception e) {
                     System.err.println("Falha na transferência: " + e.getMessage());

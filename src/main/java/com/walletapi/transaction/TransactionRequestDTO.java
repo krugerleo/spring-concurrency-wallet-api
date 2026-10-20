@@ -16,5 +16,8 @@ public record TransactionRequestDTO(
 
     @NotNull(message = "Transaction amount is required.")
     @Positive(message = "Transaction amount needs to be positive.")
-    BigDecimal amount
+    BigDecimal amount,
+
+    @NotNull
+    String idempotencyKey
 ){}

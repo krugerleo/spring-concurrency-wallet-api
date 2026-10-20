@@ -14,12 +14,19 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private BigDecimal amount;
+
     @ManyToOne
     @JoinColumn(name = "wallet_source_id")
     private Wallet walletSource;
+
     @ManyToOne
     @JoinColumn(name = "wallet_destination_id")
     private Wallet walletDestination;
+
     private LocalDateTime date;
+
+    @Column(nullable = false, unique = true)
+    private String idempotencyKey;
 }
