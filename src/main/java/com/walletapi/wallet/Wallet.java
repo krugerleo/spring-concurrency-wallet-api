@@ -1,8 +1,8 @@
-package wallet;
+package com.walletapi.wallet;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import user.User;
+import com.walletapi.user.User;
 
 import java.math.BigDecimal;
 

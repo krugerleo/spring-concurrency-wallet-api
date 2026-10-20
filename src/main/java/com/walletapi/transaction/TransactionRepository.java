@@ -1,7 +1,7 @@
-package transaction;
+package com.walletapi.transaction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wallet.Wallet;
+import com.walletapi.wallet.Wallet;
 
 import java.util.List;
 

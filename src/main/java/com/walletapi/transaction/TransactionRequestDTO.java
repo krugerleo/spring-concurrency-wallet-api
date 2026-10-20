@@ -1,4 +1,4 @@
-package transaction;
+package com.walletapi.transaction;
 
 
 import jakarta.validation.constraints.Positive;

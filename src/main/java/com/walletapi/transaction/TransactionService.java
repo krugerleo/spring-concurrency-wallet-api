@@ -1,18 +1,18 @@
-package transaction;
+package com.walletapi.transaction;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import wallet.Wallet;
-import wallet.WalletRepository;
+import com.walletapi.wallet.Wallet;
+import com.walletapi.wallet.WalletRepository;
 
 import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
-    private TransactionRepository transactionRepository;
-    private WalletRepository walletRepository;
+    private final TransactionRepository transactionRepository;
+    private final WalletRepository walletRepository;
 
     @Transactional
     public Transaction transfer(TransactionRequestDTO request) {

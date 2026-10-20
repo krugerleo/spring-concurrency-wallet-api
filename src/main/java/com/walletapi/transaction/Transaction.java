@@ -1,9 +1,9 @@
-package transaction;
+package com.walletapi.transaction;
 
 
 import jakarta.persistence.*;
 import lombok.Data;
-import wallet.Wallet;
+import com.walletapi.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
