@@ -2,7 +2,6 @@ package com.walletapi.wallet;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import com.walletapi.user.User;
 
 import java.math.BigDecimal;
 
@@ -15,7 +14,4 @@ public class Wallet{
 
     private BigDecimal balance;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }

@@ -1,6 +1,6 @@
 package com.walletapi.transaction;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.walletapi.wallet.Wallet;
@@ -16,14 +16,14 @@ public class TransactionService {
 
     @Transactional
     public Transaction transfer(TransactionRequestDTO request) {
-        Wallet sourceWallet = walletRepository.findById(request.sourceWallet()).orElseThrow(
+        Wallet sourceWallet = walletRepository.findByIdWithLock(request.sourceWallet()).orElseThrow(
                 () -> new IllegalArgumentException("Source wallet not found.")
         );
-        Wallet destinationWallet = walletRepository.findById(request.destinationWallet()).orElseThrow(
+        Wallet destinationWallet = walletRepository.findByIdWithLock(request.destinationWallet()).orElseThrow(
                 () -> new IllegalArgumentException("Destination wallet nor found.")
         );
 
-        if (sourceWallet.getBalance().compareTo(destinationWallet.getBalance()) < 0) {
+        if (sourceWallet.getBalance().compareTo(request.amount()) < 0) {
             throw new IllegalArgumentException("Insufficient funds.");
         }
 
@@ -35,7 +35,7 @@ public class TransactionService {
         Transaction transaction = new Transaction();
         transaction.setWalletSource(sourceWallet);
         transaction.setWalletDestination(destinationWallet);
-        transaction.setAmount(transaction.getAmount());
+        transaction.setAmount(request.amount());
         transaction.setDate(LocalDateTime.now());
         return transactionRepository.save(transaction);
     }
